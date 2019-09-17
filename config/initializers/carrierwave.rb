@@ -1,11 +1,13 @@
 # config/initializers/carrierwave.rb
 
 CarrierWave.configure do |config|
-  config.fog_provider = 'fog/aws'                        # required
-  config.fog_credentials = {
-    provider:              'AWS',                        # required
-    aws_access_key_id:     ENV["AWS_ACCESS_KEY"],        # required
-    aws_secret_access_key: ENV["AWS_SECRET_KEY"],        # required
+  config.storage = :aws
+  config.aws_acl = "public_read"
+  config.aws_bucket = ENV['AWS_BUCKET_NAME']
+
+  config.aws_credentials = {
+               region: ENV['AWS_REGION_NAME'],       # required
+        access_key_id: ENV["AWS_ACCESS_KEY"],        # required
+    secret_access_key: ENV["AWS_SECRET_KEY"],        # required
   }
-  config.fog_directory  = ENV["AWS_BUCKET"]              # required
 end
